@@ -80,12 +80,14 @@ int HashTable_DeInit(HashTable_S* table)
 	return HASHTABLE_SUCCESS;
 }
 
+#define FACTOR 3
+
 size_t Hash(String_T key)
 {
 	size_t sum = 0;
-	for (size_t factor = 3; *key; ++key, factor *= factor)
+	for (size_t factor = 1; *key; ++key)
 	{
-		sum += (size_t)(*key) * factor;
+		sum += (size_t)(*key) * (factor *= FACTOR);
 	}
 	return sum;
 }
